@@ -1,0 +1,231 @@
+
+DECLARE INTEGER   Bematech_FI_AbreCupon IN "BemaFi32.dll";
+        STRING   RIF
+
+*Parámetros: 
+*RIF			  string hasta 29 caracteres con el RIF del cliente.   
+*Valores de Retorno:
+* 0 - Error de comunicacao
+* 1 - Ok
+*-2 - Parâmetro inválido
+*Observación: 
+*- El cupon fiscal debe estar cerrado.
+
+
+DECLARE INTEGER   Bematech_FI_VendeArticulo IN "BemaFi32.dll";
+        STRING    Codigo,;
+        STRING    Descripcion,;
+        STRING    Alicuota,;
+        STRING    TipoCtd,;
+        STRING    Cantidad,;
+        INTEGER   CasasDecimaçes,;
+        STRING    ValorUnitario,;
+        STRING    TipoDesc,;
+        STRING    ValorDesc
+
+*Parâmetros: 
+*	Codigo				String  hasta  13 caracteres con el código del producto.
+*   Descripcion			String  hasta  29 caracteres con la descripción del producto.
+*	Alicuota			String con la alucuota.
+*	TipoCtd      		Un caracter indicando el tipo de Cantidad.
+*                       I - Entera y F - Fraccionaria
+*   Cantidad			String con hasta 4 dígitos para cantidad entera y 
+*                       7 dígitos para cantidad fraccionaria. 
+*                       En la cantidad fraccionaria son 3 casas decimales. 
+*	CasasDecimales		Entero indicando el número de casas decimales para el
+*                       valor unitário (2 o 3).
+*	ValorUnitario		String hasta 8 dígitos para valor unitario.
+*	TipoDesc    		Un caracter indicando la forma de descuento. 
+*                       '$' descuento por valor y '%' descuento porcentual.
+*	ValorDesc   		String con hasta 8 dígitos para descuento por valor ( 2 casas decimales )
+*                       y 4 dígitos para descuento porcentual. 
+*Valores de Retorno:
+* 0 - Error de comunicacao
+* 1 - Ok
+*-2 - Parâmetro inválido
+*-3 - Alicuota no programada
+*Observación: 
+*- El cupon fiscal debe estar abierto.
+
+
+DECLARE INTEGER   Bematech_FI_AnulaArticuloAnterior IN "BemaFi32.dll"
+*Parámetros: 
+*No hay 
+*Valores de Retorno:
+* 0 - Error de comunicacao
+* 1 - Ok
+*Observación:
+*- El cupon fiscal debe estar abierto
+*- Y un artículo debe ter sido vendido
+*- No debe ter sido anulado ningún artículo imediatamente anterior. 
+
+
+DECLARE INTEGER   Bematech_FI_IniciaCierreCupon IN "BemaFi32.dll";
+        STRING    IncrDesc,;
+        STRING    TipoIncrDesc,;
+        STRING    ValorIncrDesc
+*Parámetros: 
+* 		IncrDesc        		Indica si haberá incremento o descuento en el cupón.
+*                               'A' para incremento y 'D' para descuento.
+* 		TipoIncrDesc        	Indica  si  el  incremento o descuento es por valor o por porcentual.
+*                              '$' para descuento por valor y '%' para porcentual.
+* 		ValorIncrDesc       	String  con 14 dígitos para incremento o 
+*                               descuento por valor y 4 dígitos para incremento o 
+*                               descuento por porcentual.
+*Valores de Retorno:
+* 0 - Error de comunicación
+* 1 - Ok
+*-2 - Parámetro invalido.
+*Observaciones:
+*- El cupón debe estar abierto
+*- Por lo menos un artículo debe ter sido vendido
+*- El valor del incremento o descuento debe ser menor que el subtotal del cupón.
+
+
+DECLARE INTEGER   Bematech_FI_EfectuaFormaPago IN "BemaFi32.dll";
+        STRING    FormaPago,;
+        STRING    ValorFormaPago 
+*Parámetros: 
+*		FormaPago	    	String con la forma de pago con 16 caracteres.
+* 		ValorFormaPago	    Valor de la forma de pago con hasta 14 dígitos.
+*Valores de Retorno:
+* 0 - Error de comunicación
+* 1 - Ok
+*-2 - Parámetro invalido.
+*Observación:
+*- El cierre del cupón con formas de pago debe ter sido iniciado.
+
+
+DECLARE INTEGER   Bematech_FI_FinalizarCierreCupon IN "BemaFi32.dll";
+        STRING    Mensaje
+*Parámetros: 
+*		Mensaje			Mensaje promocional con hasta 490 caracteres.
+*Valores de Retorno:
+* 0 - Error de comunicación
+* 1 - Ok
+*-2 - Parámetro invalido.
+*Observación:
+*- La forma de pago debe ter sido efectuada.
+
+
+DECLARE INTEGER   Bematech_FI_AnulaCupon IN "BemaFi32.dll"
+*Parámetros: 
+*No hay
+*Valores de Retorno:
+* 0 - Error de comunicación
+* 1 - Ok
+*Observaciones:
+*- En el caso de anulación con el cupón aún abierto, por lo menos un artículo debe ter sido vendido.
+*- No podrá ter ocurrido reducción Z y nin lectura X despúés de la impresión del cupón.
+
+
+DECLARE INTEGER   Bematech_FI_ReduccionZ IN "BemaFi32.dll";
+        STRING    Fecha,;
+        STRING    Hora 
+*Parámetros: 
+* 		Fecha				Fecha actual de la impresora en el formato dd/mm/aaaa o dd/mm/aa.
+* 		Hora				Hora a  ser cambiada en el formato hh:mm:ss.
+*Valores de Retorno:
+* 0 - Error de comunicación
+* 1 - Ok
+*-2 - Parámetro invalido
+*Observaciones:
+*- Solamente será acepto un ajuste de +/- 5 minutos. 
+*- El cupón fiscal debe estar cerrado.
+
+
+DECLARE INTEGER   Bematech_FI_LecturaX IN "BemaFi32.dll"
+*Parámetros: 
+*No hay.
+*Valores de Retorno:
+* 0 - Error de comunicación
+* 1 - Ok
+*Observación:
+*- El cupón fiscal debe estar cerrado.
+
+DECLARE INTEGER   Bematech_FI_LecturaXSerial IN "BemaFi32.dll"
+*Parámetros: 
+*No hay.
+*Valores de Retorno:
+* 0 - Error de comunicación
+* 1 - Ok
+*-1 - Error de ejecución.
+*Observación:
+*- El cupón fiscal debe estar cerrado.
+
+
+DECLARE INTEGER   Bematech_FI_Sangria IN "BemaFi32.dll";
+        STRING    Valor
+*Parámetros: 
+*		Valor			Valor de la sangria con hasta 14 dígitos  2 casas decimales .
+*Valores de Retorno:
+* 0 - Error de comunicación
+* 1 - Ok
+*-2 - Parámetro inválido.
+*Observación:
+*- El cupón fiscal debe estar cerrado.
+
+DECLARE INTEGER   Bematech_FI_Provision IN "BemaFi32.dll";
+        STRING    Valor,;
+        STRING    FormaPagamento 
+*Parámetros: 
+*		Valor				Valor de la provisión con  hasta 14 dígitos	( 2 casas decimales ).
+*		FormaPago 		    Forma de pago  con  hasta 16 caracteres.
+*Valores de Retorno:
+* 0 - Error de comunicación
+* 1 - Ok
+*-2 - Parámetro inválido.
+*Observación:
+*- El cupón fiscal debe estar cerrado.
+
+
+DECLARE INTEGER   Bematech_FI_Autenticacion IN "BemaFi32.dll"
+*Parámetros: 
+*No hay.
+*Valores de Retorno:
+* 0 - Error de comunicación
+* 1 - Ok
+*Observaciones:
+*- Deberá ser ejecutada imediatamente después um cupón no fiscal
+*- Podrá ser repetido hasta 5 veces para cada recebimiento, después el comando será ignorado
+
+DECLARE INTEGER   Bematech_FI_AccionaGaveta IN "BemaFi32.dll"
+*Parámetros: 
+*No hay.
+*Valores de Retorno:
+* 0 - Error de comunicación
+* 1 - Ok
+
+DECLARE INTEGER   Bematech_FI_VerificaEstadoGaveta IN "BemaFi32.dll";
+        INTEGER   @Estado 
+*Parámetros: 
+*		Estado				Variable para  reciber el status del cajón. 
+*                           Status = 1 sensor en nível 1 (abierto) 
+*                           Status = 0 sensor en nível 0 (fechada)
+*Valores de Retorno:
+* 0 - Error de comunicación
+* 1 - Ok
+*-1 - Error de ejecución de la función.
+
+
+DECLARE INTEGER   Bematech_FI_RetornoImpresora IN "BemaFi32.dll";
+        INTEGER   ACK,;
+        INTEGER   ST1,;
+        INTEGER   ST2
+*Parámetros: 
+* 		ACK				Variables  para  reciber  los  3  bytes  
+* 		ST1				de status de la impresora.
+* 		ST2 
+*Valores de Retorno:
+* 0 - Error de comunicación
+* 1 - Ok
+*-1 - Error de ejecución.
+*Comentários:
+*- Esa función debe ser usada después de la ejecución de cualquier otra función de la dll para leer el
+*  retorno de la impresora referente a la función ejecutada. Esa función retorna el status de la 
+*  impresora (poco papel, comando no ejecutado, tipo de parámetro de CMD inválido etc.).
+
+
+DECLARE INTEGER   Bematech_FI_AbreComprobanteDeVenta IN "BemaFi32.dll";
+        STRING   RIF,;
+        STRING   NOMBRE
